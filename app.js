@@ -3,6 +3,9 @@ const cookieParser = require('cookie-parser');
 const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
+const redis = require('redis')
+const connectRedis = require('connect-redis')
+const RedisStore = connectRedis(session)
 const nunjucks = require('nunjucks');
 const dotenv = require('dotenv');
 const passportConfig = require('./passport')
@@ -12,7 +15,10 @@ const authRouter = require('./router/auth')
 const indexRouter = require('./router/index')
 const postRouter = require('./router/post')
 dotenv.config();
-
+const redisClient = redis.createClient({
+  url : `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+  password : process.env.REDIS_PASSWORD
+})
 
 const app = express();
 app.set('port', process.env.PORT || 8003);
@@ -37,7 +43,9 @@ app.use(session({
     httpOnly: true,
     secure: false,
   },
+  store : new RedisStore({client : redisClient})
 }));
+
 sequelize.sync({force : false}).then(()=>{
   console.log('db start...')
 })
