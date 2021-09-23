@@ -1,7 +1,8 @@
 const express= require('express')
 const router = express.Router()
 const postController = require('../controller/post')
-const {isLoggedIn, apiLimiter} = require('../middleware/auth')
+const {isLoggedIn} = require('../middleware/auth')
+const {apiLimiter} = require('../middleware/rateLimit')
 const fs = require('fs')
 const path = require('path')
 const multer = require('multer')
@@ -39,7 +40,7 @@ const upload = multer({
 router.get('/',isLoggedIn, apiLimiter, postController.getAll)
 // GET /user/:id         get posts of user 
 
-router.get('/user/:id', isLoggedIn, apiLimiter, postController.getAllByUserId)
+router.get('/user/:id', isLoggedIn,  apiLimiter, postController.getAllByUserId)
 // POST /         create post 
 router.post('/', isLoggedIn, apiLimiter, upload.single('img') ,postController.createPost)
 // PUT  /:id       update post
@@ -47,7 +48,7 @@ router.post('/', isLoggedIn, apiLimiter, upload.single('img') ,postController.cr
 router.put('/:id', isLoggedIn, apiLimiter, postController.updatePost)
 // DELETE /id      delete post 
 
-router.delete('/:id', isLoggedIn, apiLimiter, postController.deletePost)
+router.delete('/:id', isLoggedIn,  apiLimiter, postController.deletePost)
 
 
 

@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const path = require('path');
 const session = require('express-session');
 const redis = require('redis')
+const helmet = require('helmet')
+const hpp = require('hpp')
 const connectRedis = require('connect-redis')
 const RedisStore = connectRedis(session)
 const nunjucks = require('nunjucks');
@@ -20,6 +22,7 @@ const redisClient = redis.createClient({
   url : `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
   password : process.env.REDIS_PASSWORD
 })
+  
 
 const app = express();
 app.set('port', process.env.PORT || 8003);
@@ -30,7 +33,17 @@ nunjucks.configure('views', {
 });
 passportConfig()
 
-app.use(morgan('dev'));
+if(process.env.NODE_ENV === 'production')
+{
+  app.use(morgan('combined'))  
+  app.use(helmet({contentSecurityPolicy : false}))
+  app.use(hpp())
+}
+else
+{
+  app.use(morgan('dev')); 
+}
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/img', express.static(path.join(__dirname,'uploads')))
 app.use(express.json());

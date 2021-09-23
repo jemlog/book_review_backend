@@ -49,13 +49,4 @@ exports.verifyToken = (req,res,next) => {
 }
 // 헤더의 authorization에 저장되어있는 토큰 확인해서 req.decoded에 실어주자
 
-exports.apiLimiter = new RateLimit({
-  windowMs : 1000 * 60,
-  max : 10,
-  handler(req,res){
-    res.status(this.statusCode).json({
-      code : this.statusCode,
-      message : '1분에 한번만 호출 가능합니다'
-    })
-  }
-})
+
