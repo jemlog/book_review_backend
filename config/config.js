@@ -4,7 +4,7 @@ module.exports = {
 
   development: {
     username: "postgres",
-    password: process.env.SEQUELIZE_PASSWORD,
+    password: process.env.POSTGRES_PASSWORD,
     database: "api_server",
     host: "127.0.0.1",
     dialect: "postgres",
@@ -18,12 +18,12 @@ module.exports = {
     dialect: "mysql"
   },
   production: {
-    username: "postgres",
-    password: process.env.SEQUELIZE_PASSWORD,
+    username: "root",
+    password: process.env.MYSQL_PASSWORD,
     database: "api_server",
     host: "127.0.0.1",
-    dialect: "postgres",
-    operatorsAliases : false,
+    dialect: "mysql",
+    
     logging : false
   }
 }
