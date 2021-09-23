@@ -7,3 +7,4 @@
 - post 관련 CRUD 구현
 - multer를 통한 이미지 업로드 구현
 - REDIS에 세션 저장
+- winston으로 logger 추가
