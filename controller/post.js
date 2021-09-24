@@ -7,7 +7,7 @@ exports.getAll = async (req,res,next) => {
   
   try{
     const posts = await Post.findAll();
-    return res.status(201).json(posts)
+    return res.json(posts);
   }
   catch(err)
   {
@@ -36,12 +36,13 @@ exports.getAllByUserId = async (req,res,next) => {
 exports.createPost = async (req,res,next) => {
 
   const {title, description} = req.body;
+  console.log(req.file.location)
   try{
     const post = await Post.create({
       UserId : req.user.id , 
       title,
       description,
-      image : `img/${req.file.filename}`
+      image : req.file.location
     })
     res.json(post);
   }

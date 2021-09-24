@@ -53,7 +53,7 @@ router.post('/login',isNotLoggedIn, (req,res,next) => {
         console.error(loginError)
         return next(loginError)
       }
-      return res.json({message : '로그인완료'})
+      return res.redirect('/')
       // 이 순간 세션쿠키를 브라우저로 보낸다. 
     })
   })(req,res,next)
@@ -62,7 +62,7 @@ router.post('/login',isNotLoggedIn, (req,res,next) => {
 router.get('/logout', isLoggedIn, (req,res,next) => {
   req.logOut()  // 서버에서 세션이 사라진다. 
   req.session.destroy()
-  res.json({message : "로그아웃 완료"})
+  res.redirect('/')
 
 })
 

@@ -5,7 +5,8 @@ const {isLoggedIn} = require('../middleware/auth')
 const {v4 : uuidv4} = require('uuid')
 router.get('/', async (req,res,next) => {
 
-  res.send('hello')
+  res.locals.user = req.user;
+  res.render('login');
 })
 
 

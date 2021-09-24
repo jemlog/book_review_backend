@@ -10,15 +10,9 @@
   
 {% if user %}
 
-<form action="/domain" method="POST">
- <label for="host">host</label>
- <input type="text" id="host" name="host">
- <label for="free">free</label>
-<input type="radio" id="free" name="type" value="free">
-<label for="premium">premium</label>
-<input type="radio" id="premium" name="type" value="premium">
-<button type="submit">제출</button>
-</form>
+{% for post in posts %}
+<span>{{post}}</span>
+{% endfor%}
 
 {% else %}
 <form action="/auth/login" method="POST">
