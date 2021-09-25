@@ -1,0 +1,23 @@
+input {
+  height: 20px;
+  width: 300px;
+  outline: none;
+}
+
+input:hover{
+  border: 2px skyblue solid;
+}
+
+.list
+{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.logined
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

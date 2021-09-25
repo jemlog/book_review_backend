@@ -44,7 +44,7 @@ exports.createPost = async (req,res,next) => {
       description,
       image : req.file.location
     })
-    res.json(post);
+    res.redirect('/')
   }
   catch(error)
   {

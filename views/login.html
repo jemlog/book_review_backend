@@ -5,21 +5,50 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login page</title>
+  <link rel="stylesheet" href="../public/login.css">
 </head>
-<body>
-  
-{% if user %}
 
-{% for post in posts %}
-<span>{{post}}</span>
-{% endfor%}
+<body>
+{% if user %}
+<a href="/auth/logout">
+<button>로그아웃</button>
+</a>
+<hr>
+<section class="logined">
+
+  <div class="list">
+    {% for post in posts %}
+    <div class="title">title : {{post.title}}</div>
+  <div class="description">description : {{post.description}}</div>
+  <img class="image" src={{post.image}} alt="hello">
+  {% endfor %}
+  </div>
+  
+
+  <div class="input-section">
+    <form action="/post" method="POST" enctype="multipart/form-data">
+      <div><label for="title">제목  :</label>
+        <input type="text", id="title", name="title"></div>
+        <label for="description">설명  :</label>
+       <textarea name="description" id="description" cols="30" rows="10"></textarea>
+        <div>  <label for="img">파일  :</label>
+          <input type="file" name="img" id="img"></div>
+    
+      <button type="submit">제출</button>
+    </form>
+  </div>
+</section>
+
+
+
 
 {% else %}
 <form action="/auth/login" method="POST">
-  <label for="email">이메일</label>
-  <input type="text", id="email", name="email">
-  <label for="password">비밀번호</label>
-  <input type="password" name="password" id="password">
+  <div><label for="email">이메일  :</label>
+    <input type="text", id="email", name="email"></div>
+  <div>  <label for="password">비밀번호  :</label>
+    <input type="password" name="password" id="password"></div>
+
   <button type="submit">제출</button>
 </form>
 

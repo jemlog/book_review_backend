@@ -6,6 +6,7 @@ const {v4 : uuidv4} = require('uuid')
 router.get('/', async (req,res,next) => {
 
   res.locals.user = req.user;
+  res.locals.posts = req.user ? req.user.Posts : 0; 
   res.render('login');
 })
 
